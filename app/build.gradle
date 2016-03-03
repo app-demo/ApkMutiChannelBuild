@@ -17,7 +17,36 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    //多渠道打包方法一:
+//    productFlavors {
+//        wandoujia {
+//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "wandoujia"]
+//        }
+//
+//
+//        baidu {
+//            manifestPlaceholders = [CHANNEL_VALUE: "baidu"]
+//        }
+//
+//        c360 {
+//            manifestPlaceholders = [CHANNEL_VALUE: "c360"]
+//        }
+//    }
+
+    //多渠道打包方法二:
+    productFlavors {
+        wandoujia {}
+        baidu {}
+        c360 {}
+
+        productFlavors.all {
+            flavor -> flavor.manifestPlaceholders = [CHANNEL_VALUE: name]
+        }
+    }
 }
+
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
